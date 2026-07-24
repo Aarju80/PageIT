@@ -4,23 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PageIT | Website Audit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
     <script defer src="config.js"></script>
     <script defer src="script.js"></script>
   </head>
   <body>
     <main class="page-shell">
+
       <section class="hero-card">
+        <span class="reticle-corner corner-tl" aria-hidden="true"></span>
+        <span class="reticle-corner corner-tr" aria-hidden="true"></span>
+        <span class="reticle-corner corner-bl" aria-hidden="true"></span>
+        <span class="reticle-corner corner-br" aria-hidden="true"></span>
+
         <div class="hero-copy">
-          <p class="eyebrow">Know your website before your users do.</p>
-          <h1>Audit any public page in seconds.</h1>
+          <p class="eyebrow"><span class="pulse-dot" aria-hidden="true"></span>Know your website before your users do.</p>
+          <h1>Audit any public page<br />in seconds.</h1>
           <p class="subcopy">Run a technical and SEO health check with a single URL and get a clear, structured report instantly.</p>
         </div>
 
         <form id="audit-form" class="audit-form">
           <label class="sr-only" for="url-input">Website URL</label>
-          <input id="url-input" name="url" type="url" placeholder="https://example.com" required />
-          <button type="submit">Analyze</button>
+          <span class="input-wrap">
+            <span class="input-tag">URL</span>
+            <input id="url-input" name="url" type="url" placeholder="https://example.com" required />
+          </span>
+          <button type="submit"><span>Analyze</span></button>
         </form>
 
         <section id="status-panel" class="status-panel hidden" aria-live="polite"></section>
