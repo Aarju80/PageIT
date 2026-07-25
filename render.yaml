@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: pageit-backend-aarju80
+    name: pageit
     runtime: python
     plan: free
     rootDir: backend
@@ -10,3 +10,4 @@ services:
     envVars:
       - key: ALLOWED_ORIGINS
         value: "*"
+
