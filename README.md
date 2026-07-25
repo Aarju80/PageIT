@@ -1,4 +1,4 @@
-# 🚀 PageIT
+# PageIT
 
 PageIT is a lightweight website-auditing tool that takes a public URL, fetches the HTML, and returns a concise technical + SEO health report.
 
@@ -351,11 +351,11 @@ This project was developed as part of the Digital Heroes Internship Qualificatio
 
 <div align="center">
 
-### 🚀 Built for Digital Heroes Training Task
+### Built for Digital Heroes Training Task
 
 <a href="https://digitalheroesco.com">digitalheroesco.com</a>
 
-Made with ❤️ using FastAPI, BeautifulSoup, and Vanilla JavaScript.
+Made with using FastAPI, BeautifulSoup, and Vanilla JavaScript.
 
 </div>
 
