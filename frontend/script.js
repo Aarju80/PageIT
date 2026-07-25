@@ -39,7 +39,13 @@ function renderReport(report) {
   reportGrid.innerHTML = '';
 
   for (const metric of metrics) {
-    const value = report[metric.key];
+    let value = report[metric.key];
+    
+    // Add "ms" unit to response time
+    if (metric.key === 'responseTimeMs' && value !== null && value !== undefined) {
+      value = `${value} ms`;
+    }
+    
     const card = document.createElement('article');
     card.className = 'report-card';
     card.innerHTML = `<h3>${metric.label}</h3><div class="value">${value ?? 'N/A'}</div>`;
