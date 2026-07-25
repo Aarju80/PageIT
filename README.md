@@ -23,9 +23,10 @@ Given a public URL, PageIT returns:
 
 ## Live Demo
 
-- Frontend: Add deployed frontend URL
-- Backend API: Add deployed backend URL
-- GitHub Repository: Add GitHub repository URL
+- Frontend: https://page-it.vercel.app/
+- Backend API: https://pageit.onrender.com
+- Backend health check: https://pageit.onrender.com/health
+- GitHub Repository: https://github.com/Aarju80/PageIT
 
 ---
 
@@ -256,12 +257,66 @@ pytest
 
 ## Deployment Notes
 
-The project is designed for deployment on:
+PageIT is deployed as two separate services:
 
-- Render for the FastAPI backend
-- Vercel for the static frontend
+- Backend API: Render
+- Frontend: Vercel
 
-The frontend should be configured to call the deployed backend host once that environment is live.
+### Backend on Render
+
+Use these Render settings for the FastAPI backend:
+
+```text
+Root Directory: backend
+Build Command: pip install -r requirements.txt
+Start Command: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+Pre-Deploy Command: leave empty
+```
+
+The deployed backend URL is:
+
+```text
+https://pageit.onrender.com
+```
+
+Health check endpoint:
+
+```text
+GET https://pageit.onrender.com/health
+```
+
+Expected response:
+
+```json
+{"status":"ok"}
+```
+
+### Frontend on Vercel
+
+Use these Vercel settings for the static frontend:
+
+```text
+Root Directory: frontend
+Framework Preset: Other
+Build Command: leave empty
+Output Directory: leave empty
+```
+
+The deployed frontend URL is:
+
+```text
+https://page-it.vercel.app/
+```
+
+The frontend calls the Render backend through `frontend/config.js`:
+
+```js
+window.PAGEIT_CONFIG = {
+  apiBaseUrl: "https://pageit.onrender.com"
+};
+```
+
+If the Render backend URL changes, update `frontend/config.js`, commit the change, and redeploy the frontend.
 
 ---
 
@@ -303,3 +358,4 @@ This project was developed as part of the Digital Heroes Internship Qualificatio
 Made with ❤️ using FastAPI, BeautifulSoup, and Vanilla JavaScript.
 
 </div>
+
