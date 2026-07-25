@@ -6,16 +6,11 @@ from app.errors import PageITError
 
 
 class PageITValidationError(PageITError):
-    def __init__(self, message: str, status_code: int = 400) -> None:
-        super().__init__("INVALID_URL", message, status_code)
-
-
-class PageITValidationError(PageITError):
     def __init__(self, code: str, message: str, status_code: int = 400) -> None:
         super().__init__(code, message, status_code)
 
 
-def validate_url(raw_url: str) -> str:
+def validate_url(raw_url: str | None) -> str:
     cleaned_url = (raw_url or "").strip()
 
     if not cleaned_url:

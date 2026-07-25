@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from fastapi import APIRouter
 
-from app.errors import PageITError, error_payload
 from app.fetcher import fetch_page
 from app.report_builder import build_report
 from app.validators.url import validate_url
@@ -13,7 +12,7 @@ router = APIRouter(prefix="/api", tags=["audit"])
 
 
 class AuditRequest(BaseModel):
-    url: str = Field(..., min_length=1)
+    url: str | None = None
 
 
 @router.post("/audit")
