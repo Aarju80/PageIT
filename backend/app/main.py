@@ -1,23 +1,24 @@
 from __future__ import annotations
 
-from pathlib import Path
+import os
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
+from fastapi.responses import JSONResponse
 
 from app.errors import PageITError, error_payload
 from app.routes.audit import router
 
 
-ROOT_DIR = Path(__file__).resolve().parents[2]
-FRONTEND_DIR = ROOT_DIR / "frontend"
+def allowed_origins() -> list[str]:
+    configured = os.getenv("ALLOWED_ORIGINS", "*")
+    return [origin.strip() for origin in configured.split(",") if origin.strip()]
 
-app = FastAPI(title="PageIT")
+
+app = FastAPI(title="PageIT API")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins(),
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -25,31 +26,15 @@ app.add_middleware(
 
 app.include_router(router)
 
-if FRONTEND_DIR.exists():
-    app.mount(
-        "/static",
-        StaticFiles(directory=FRONTEND_DIR, html=True),
-        name="static",
-    )
+
+@app.get("/")
+def root() -> dict[str, str]:
+    return {"name": "PageIT API", "status": "ok"}
 
 
 @app.get("/health")
 def healthcheck() -> dict[str, str]:
     return {"status": "ok"}
-
-
-@app.get("/")
-def serve_frontend() -> FileResponse:
-    return FileResponse(FRONTEND_DIR / "index.html")
-
-
-@app.get("/{asset_path:path}", include_in_schema=False)
-def serve_frontend_asset(asset_path: str) -> FileResponse:
-    asset = FRONTEND_DIR / asset_path
-    if asset.is_file():
-        return FileResponse(asset)
-
-    return FileResponse(FRONTEND_DIR / "index.html")
 
 
 @app.exception_handler(PageITError)

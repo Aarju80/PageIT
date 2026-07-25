@@ -1,3 +1,3 @@
 window.PAGEIT_CONFIG = {
-  apiBaseUrl: ""
+  apiBaseUrl: "https://pageit-backend-aarju80.onrender.com"
 };
